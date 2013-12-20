@@ -1,8 +1,10 @@
 Syslog Client for Windows
 =========================
 - testing on WinXP and Win7, with syslog-ng
-- built exe with [ocra](https://github.com/larsch/ocra)
-- [![Travis-CI build status](https://travis-ci.org/shokai/syslog-client-for-windows.png)](https://travis-ci.org/shokai/syslog-client-for-windows)
+- build exe using [ocra](https://github.com/larsch/ocra)
+
+[![Travis-CI build status](https://travis-ci.org/shokai/syslog-client-for-windows.png)](https://travis-ci.org/shokai/syslog-client-for-windows)
+
 
 Download
 --------
@@ -25,6 +27,17 @@ Use
 Build and Test
 --------------
 
+### Requirements
+
+- Windows
+- [RubyInstaller for Windows](http://rubyinstaller.org)
+- [msysgit](https://code.google.com/p/msysgit)
+
+### Clone this repository to your PC
+
+    % git clone https://github.com/shokai/syslog-client-for-windows.git
+    % cd syslog-client-for-windows
+
 ### Install Dependencies
 
     % gem install bundler
@@ -34,9 +47,12 @@ Build and Test
 
     % bundle exec rake test
 
-### Build
+### Build exe
 
     % bundle exec rake build  ## windows only
+
+=> syslog-client.exe
+
 
 Contributing
 ------------
