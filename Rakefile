@@ -8,5 +8,5 @@ task :default => :test
 
 desc "build exe"
 task :build do
-  system "bundle exec ocra syslog-client.rb"
+  system "ocra syslog-client.rb"
 end

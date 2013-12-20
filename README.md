@@ -45,11 +45,11 @@ Build and Test
 
 ### Test
 
-    % bundle exec rake test
+    % rake test
 
 ### Build exe
 
-    % bundle exec rake build  ## windows only
+    % rake build  ## windows only
 
 => syslog-client.exe
 
