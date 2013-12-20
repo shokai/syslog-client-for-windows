@@ -18,7 +18,9 @@ module Syslog
       DEFALUT_LOG_OPTS.each do |k,v|
         opts[k] = v unless opts.has_key? k
       end
-      @udp.send "#{opts[:tag]}[#{opts[:pid]}]: #{message.strip}", 0, @addr
+      body = "#{opts[:tag]}[#{opts[:pid]}]: #{message.strip}"
+      @udp.send body, 0, @addr
+      return body
     end
 
     def close

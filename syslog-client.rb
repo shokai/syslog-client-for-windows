@@ -36,6 +36,12 @@ if args.has_option?(:help) or !args.has_param?(:host)
 end
 
 logger = Syslog::Client.new args[:host], args[:port]
+
 msg = args.argv.join(" ").toutf8
-logger.log msg, :tag => args[:tag], :pid => args[:pid]
+begin
+  puts logger.log msg, :tag => args[:tag], :pid => args[:pid]
+rescue => e
+  STDERR.puts e
+end
+
 logger.close
