@@ -1,3 +1,5 @@
+require 'bundler/setup'
+
 task :default => :build
 
 desc "build exe"
