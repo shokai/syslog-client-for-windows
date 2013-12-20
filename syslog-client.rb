@@ -1,5 +1,5 @@
-$:.unshift File.dirname(__FILE__)
-require 'libs/syslog'
+$:.unshift File.expand_path 'libs', File.dirname(__FILE__)
+require 'syslog'
 require 'args_parser'
 require 'kconv'
 
@@ -24,14 +24,18 @@ args = ArgsParser.parse ARGV do
 end
 
 if args.has_option?(:help) or !args.has_param?(:host)
+  STDERR.puts "syslog client v#{Syslog::VERSION}"
+  STDERR.puts "  https://github.com/shokai/syslog-client-for-windows"
+  STDERR.puts
   STDERR.puts args.help
+  STDERR.puts
   STDERR.puts "e.g."
   STDERR.puts "  syslog-client.exe -host syslog.example.com hello world"
   STDERR.puts "  syslog-client.exe -host syslog.example.com -tag WARN -pid 100 hello world"
   exit 1
 end
 
-logger = SysLogger.new args[:host], args[:port]
+logger = Syslog::Client.new args[:host], args[:port]
 msg = args.argv.join(" ").toutf8
 logger.log msg, :tag => args[:tag], :pid => args[:pid]
 logger.close
