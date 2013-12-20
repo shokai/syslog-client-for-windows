@@ -1,31 +1,35 @@
-require 'socket'
+$:.unshift File.dirname(__FILE__)
+require 'libs/syslog'
+require 'args_parser'
+require 'kconv'
 
-class SysLogger
+args = ArgsParser.parse ARGV do
+  arg :host, 'syslog server hostname'
+  arg :port, 'syslog server port', :default => 514
+  arg :tag, 'tag', :default => "INFO"
+  arg :pid, 'pid', :default => 1234
+  arg :help, 'show help', :alias => :h
 
-  attr_reader :host, :port
-  def initialize(host, port=514)
-    @host = host
-    @port = port
-    @addr = Socket.pack_sockaddr_in @port, @host
-    @udp = UDPSocket.open
+  filter :tag do |v|
+    v.to_s.upcase
   end
 
-  DEFALUT_LOG_OPTS = {:tag => "INFO", :pid => 100}
-
-  def log(message, opts={})
-    raise ArgumentError, "\"#{opts}\" must be Hash" unless opts.kind_of? Hash
-    DEFALUT_LOG_OPTS.each do |k,v|
-      opts[k] = v unless opts.has_key? k
-    end
-    @udp.send "#{opts[:tag]}[#{opts[:pid]}]: #{message.strip}", 0, @addr
+  validate :pid, "pid must be Integer" do |v|
+    v.class == Fixnum
   end
 
-  def close
-    @udp.close
+  validate :port, "port must be Integer" do |v|
+    v.class == Fixnum
   end
-
 end
 
-logger = SysLogger.new "133.27.246.114"
-logger.log ARGV.empty? ? "test message" : ARGV.join(' ')
+if args.has_option?(:help) or !args.has_param?(:host)
+  STDERR.puts args.help
+  STDERR.puts "e.g.  syslog-client.exe -host syslog.example.com "
+  exit 1
+end
+
+logger = SysLogger.new args[:host], args[:port]
+msg = args.argv.join(" ").toutf8
+logger.log msg, :tag => args[:tag], :pid => args[:pid]
 logger.close
