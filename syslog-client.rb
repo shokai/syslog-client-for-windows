@@ -25,7 +25,9 @@ end
 
 if args.has_option?(:help) or !args.has_param?(:host)
   STDERR.puts args.help
-  STDERR.puts "e.g.  syslog-client.exe -host syslog.example.com "
+  STDERR.puts "e.g."
+  STDERR.puts "  syslog-client.exe -host syslog.example.com hello world"
+  STDERR.puts "  syslog-client.exe -host syslog.example.com -tag WARN -pid 100 hello world"
   exit 1
 end
 
