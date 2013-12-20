@@ -1,3 +1,7 @@
+=== 0.0.3 2013-12-20
+
+* add tests
+
 === 0.0.2 2013-12-20
 
 * print sent syslog message body
