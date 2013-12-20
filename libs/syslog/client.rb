@@ -11,7 +11,7 @@ module Syslog
       @udp = UDPSocket.open
     end
 
-    DEFALUT_LOG_OPTS = {:tag => "INFO", :pid => 100}
+    DEFALUT_LOG_OPTS = {:tag => "INFO", :pid => 1234}
 
     def log(message, opts={})
       raise ArgumentError, "\"#{opts}\" must be Hash" unless opts.kind_of? Hash
