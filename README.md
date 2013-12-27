@@ -2,6 +2,7 @@ Syslog Client for Windows
 =========================
 - testing on WinXP and Win7, with syslog-ng
 - build exe using [ocra](https://github.com/larsch/ocra)
+- [Windows用のSyslog Clientを作った](http://shokai.org/blog/archives/8483)
 
 [![Travis-CI build status](https://travis-ci.org/shokai/syslog-client-for-windows.png)](https://travis-ci.org/shokai/syslog-client-for-windows)
 
